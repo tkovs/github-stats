@@ -4,7 +4,6 @@ module UserQuery = [%graphql
   {|
     query User ($login: String!) {
       user(login: $login) {
-        id
         name
       }
     }
@@ -37,14 +36,17 @@ let make = () => {
          </dialog>
          <p>
            {if (login !== "") {
-              switch (user) {
-              | Some(user) =>
-                switch (user.name) {
-                | Some(name) => React.string(name)
-                | None => React.string("<Without name>")
-                }
-              | None => React.string("User non existent")
-              };
+              let name =
+                switch (user) {
+                | Some(user) =>
+                  switch (user.name) {
+                  | Some(name) => name
+                  | None => "<Without name>"
+                  }
+                | None => "User non existent"
+                };
+
+              <h1> {React.string(name)} </h1>;
             } else {
               React.null;
             }}
