@@ -5,6 +5,7 @@ module UserQuery = [%graphql
     query User ($login: String!) {
       user(login: $login) {
         name
+        avatarUrl
       }
     }
   |}
@@ -39,14 +40,36 @@ let make = () => {
               let name =
                 switch (user) {
                 | Some(user) =>
-                  switch (user.name) {
-                  | Some(name) => name
-                  | None => "<Without name>"
-                  }
+                  Belt.Option.getWithDefault(user.name, "<Without name>")
                 | None => "User non existent"
                 };
+              let avatarUrl =
+                switch (user) {
+                | Some(user) => Some(user.avatarUrl)
+                | None => None
+                };
 
-              <h1> {React.string(name)} </h1>;
+              let name = <h1> {React.string(name)} </h1>;
+              let avatarSome =
+                Belt.Option.getWithDefault(
+                  avatarUrl,
+                  Js.Json.string(
+                    "https://avatars0.githubusercontent.com/u/191074?s=460&v=4",
+                  ),
+                );
+              let avatarImg =
+                <img
+                  src={Js.String2.replace(
+                    Js.Json.stringify(avatarSome),
+                    "\"",
+                    "",
+                  )}
+                />;
+
+              <div>
+                name
+                {Belt.Option.isSome(user) ? avatarImg : React.null}
+              </div>;
             } else {
               React.null;
             }}
