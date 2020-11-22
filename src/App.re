@@ -1,3 +1,5 @@
+[%bs.raw {|require("vtex-tachyons/tachyons.min.css")|}];
+
 [@react.component]
 let make = () => {
   <ApolloClient.React.ApolloProvider client=Client.instance>
