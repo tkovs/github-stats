@@ -2,10 +2,12 @@ module UserQuery = [%graphql
   {|
     query User ($login: String!) {
       user(login: $login) {
-        name
         avatarUrl
         bio
         company
+        email
+        location
+        name
       }
     }
   |}
@@ -31,8 +33,10 @@ let make = () => {
                 ->Js.Json.stringify
                 ->Js.String2.replace(_, "\"", ""),
               bio: user.bio,
-              name: user.name,
               company: user.company,
+              email: user.email,
+              location: user.location,
+              name: user.name,
             };
             User(data);
           | None => NotInitialized
