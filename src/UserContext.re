@@ -5,6 +5,7 @@ type user = {
   email: string,
   location: option(string),
   name: option(string),
+  twitterUsername: option(string),
   websiteUrl: option(string),
 };
 

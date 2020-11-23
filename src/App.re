@@ -8,6 +8,7 @@ module UserQuery = [%graphql
         email
         location
         name
+        twitterUsername
         websiteUrl
       }
     }
@@ -41,6 +42,7 @@ let make = () => {
               email: user.email,
               location: user.location,
               name: user.name,
+              twitterUsername: user.twitterUsername,
               websiteUrl:
                 switch (user.websiteUrl) {
                 | Some(url) => Some(url->Js.Json.stringify->clearUrl)

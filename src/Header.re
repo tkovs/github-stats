@@ -28,12 +28,18 @@ let make = () => {
       | Some(location) => <p> {("Lives in " ++ location)->React.string} </p>
       | None => React.null
       };
+    let twitterUsername =
+      switch (user.twitterUsername) {
+      | Some(twitterUsername) =>
+        <p> {("Twitter: " ++ twitterUsername)->React.string} </p>
+      | None => React.null
+      };
     let website =
       switch (user.websiteUrl) {
       | Some(url) => <a href=url> "Website"->React.string </a>
       | None => React.null
       };
 
-    <div> name email bio company website location image </div>;
+    <div> name email bio company website twitterUsername location image </div>;
   };
 };
