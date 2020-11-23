@@ -22,6 +22,16 @@ let make = () => {
         {Belt.Option.getWithDefault(user.name, "<no name>")->React.string}
       </h2>;
     let email = <p> user.email->React.string </p>;
+    let repoTypes =
+      <p>
+        {(
+           "Repositories types(forked/owned) :"
+           ++ string_of_int(user.forkedRepositoriesCount)
+           ++ "/"
+           ++ string_of_int(user.notForkedRepositoriesCount)
+         )
+         ->React.string}
+      </p>;
     let image = <img src={user.avatarUrl} />;
     let location =
       switch (user.location) {
@@ -40,6 +50,16 @@ let make = () => {
       | None => React.null
       };
 
-    <div> name email bio company website twitterUsername location image </div>;
+    <div>
+      name
+      email
+      bio
+      company
+      website
+      twitterUsername
+      location
+      repoTypes
+      image
+    </div>;
   };
 };

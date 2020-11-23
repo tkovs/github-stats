@@ -10,6 +10,12 @@ module UserQuery = [%graphql
         name
         twitterUsername
         websiteUrl
+        forkedRepositories: repositories(isFork: true) {
+          totalCount
+        },
+        notForkedRepositories: repositories(isFork: false) {
+          totalCount
+        }
       }
     }
   |}
@@ -40,8 +46,11 @@ let make = () => {
               bio: user.bio,
               company: user.company,
               email: user.email,
+              forkedRepositoriesCount: user.forkedRepositories.totalCount,
               location: user.location,
               name: user.name,
+              notForkedRepositoriesCount:
+                user.notForkedRepositories.totalCount,
               twitterUsername: user.twitterUsername,
               websiteUrl:
                 switch (user.websiteUrl) {
