@@ -29,8 +29,7 @@
     "reason-apollo-client": "^1.0.0-beta.1",
     "reason-promise": "1.1.1",
     "reason-react": "0.9.1",
-    "subscriptions-transport-ws": "0.9.16",
-    "vtex-tachyons": "^3.2.2"
+    "subscriptions-transport-ws": "0.9.16"
   },
   "devDependencies": {
     "@reasonml-community/graphql-ppx": "1.0.0",
