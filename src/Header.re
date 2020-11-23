@@ -7,6 +7,22 @@ let make = () => {
   | Loading => <p> "Loading"->React.string </p>
   | Error => <p> "Error"->React.string </p>
   | User(user) =>
-    <div> <p> user.name->React.string </p> <img src={user.avatarUrl} /> </div>
+    let company =
+      switch (user.company) {
+      | Some(company) => <p> {("Works at " ++ company)->React.string} </p>
+      | None => React.null
+      };
+    let bio =
+      switch (user.bio) {
+      | Some(bio) => <p> {("Bio: " ++ bio)->React.string} </p>
+      | None => React.null
+      };
+    let name =
+      <p>
+        {Belt.Option.getWithDefault(user.name, "<no name>")->React.string}
+      </p>;
+    let image = <img src={user.avatarUrl} />;
+
+    <div> name bio company image </div>;
   };
 };

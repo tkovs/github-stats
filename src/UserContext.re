@@ -1,6 +1,8 @@
 type user = {
-  name: string,
+  name: option(string),
   avatarUrl: string,
+  bio: option(string),
+  company: option(string),
 };
 
 type graphqlQuery =

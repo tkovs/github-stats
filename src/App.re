@@ -4,6 +4,8 @@ module UserQuery = [%graphql
       user(login: $login) {
         name
         avatarUrl
+        bio
+        company
       }
     }
   |}
@@ -24,11 +26,13 @@ let make = () => {
           switch (user) {
           | Some(user) =>
             let data: UserContext.user = {
-              name: Belt.Option.getWithDefault(user.name, "<No name>"),
               avatarUrl:
                 user.avatarUrl
                 ->Js.Json.stringify
                 ->Js.String2.replace(_, "\"", ""),
+              bio: user.bio,
+              name: user.name,
+              company: user.company,
             };
             User(data);
           | None => NotInitialized
