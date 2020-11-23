@@ -28,7 +28,12 @@ let make = () => {
       | Some(location) => <p> {("Lives in " ++ location)->React.string} </p>
       | None => React.null
       };
+    let website =
+      switch (user.websiteUrl) {
+      | Some(url) => <a href=url> "Website"->React.string </a>
+      | None => React.null
+      };
 
-    <div> name email bio company location image </div>;
+    <div> name email bio company website location image </div>;
   };
 };

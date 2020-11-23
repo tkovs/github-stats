@@ -5,6 +5,7 @@ type user = {
   email: string,
   location: option(string),
   name: option(string),
+  websiteUrl: option(string),
 };
 
 type graphqlQuery =

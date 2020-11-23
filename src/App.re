@@ -8,10 +8,17 @@ module UserQuery = [%graphql
         email
         location
         name
+        websiteUrl
       }
     }
   |}
 ];
+
+let clearUrl = url => {
+  let remove = Js.String2.replace(_, "\"", "");
+
+  url->remove->remove;
+};
 
 [@react.component]
 let make = () => {
@@ -28,15 +35,17 @@ let make = () => {
           switch (user) {
           | Some(user) =>
             let data: UserContext.user = {
-              avatarUrl:
-                user.avatarUrl
-                ->Js.Json.stringify
-                ->Js.String2.replace(_, "\"", ""),
+              avatarUrl: user.avatarUrl->Js.Json.stringify->clearUrl,
               bio: user.bio,
               company: user.company,
               email: user.email,
               location: user.location,
               name: user.name,
+              websiteUrl:
+                switch (user.websiteUrl) {
+                | Some(url) => Some(url->Js.Json.stringify->clearUrl)
+                | None => None
+                },
             };
             User(data);
           | None => NotInitialized
