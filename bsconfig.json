@@ -27,7 +27,8 @@
     "reason-apollo-client",
     "@reasonml-community/graphql-ppx",
     "reason-promise",
-    "reason-react"
+    "reason-react",
+    "re-debouncer"
   ],
   "ppx-flags": ["@reasonml-community/graphql-ppx/ppx"],
   "refmt": 3,

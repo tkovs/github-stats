@@ -12,9 +12,9 @@ type user = {
 };
 
 type graphqlQuery =
-  | NotInitialized
   | Loading
   | Error
+  | NotInitialized
   | User(user);
 
 let context = React.createContext(NotInitialized);

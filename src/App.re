@@ -61,16 +61,19 @@ let make = () => {
             User(data);
           | None => NotInitialized
           }
-        | {loading: true, _} => Loading
-        | {error: Some(_), _} => Error
+        | {loading: true} => Loading
+        | {error: Some(_)} => Error
         }
       );
+
+  let debouncedSetLogin = Debouncer.make(~wait=500, setLogin);
 
   <div>
     <UserProvider value>
       <input
         type_="text"
-        onChange={e => e->ReactEvent.Form.target##value |> setLogin}
+        onChange={e => e->ReactEvent.Form.target##value |> debouncedSetLogin}
+        maxLength=64
       />
       <Header />
     </UserProvider>

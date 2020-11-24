@@ -24,6 +24,7 @@
   "dependencies": {
     "@apollo/client": "3.2.4",
     "graphql": "15.3.0",
+    "re-debouncer": "^2.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "reason-apollo-client": "^1.0.0-beta.1",

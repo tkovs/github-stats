@@ -5,7 +5,8 @@ let make = () => {
   switch (user) {
   | NotInitialized => <p> "Not initialized"->React.string </p>
   | Loading => <p> "Loading"->React.string </p>
-  | Error => <p> "Error"->React.string </p>
+  | Error =>
+    <p> "Error on fetch... Maybe this login is not used."->React.string </p>
   | User(user) =>
     let company =
       switch (user.company) {
