@@ -2,6 +2,7 @@ type user = {
   avatarUrl: string,
   bio: option(string),
   company: option(string),
+  createdAt: Js.Date.t,
   forkedRepositoriesCount: int,
   email: string,
   location: option(string),

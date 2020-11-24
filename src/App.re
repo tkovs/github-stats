@@ -5,6 +5,7 @@ module UserQuery = [%graphql
         avatarUrl
         bio
         company
+        createdAt
         email
         location
         name
@@ -21,7 +22,7 @@ module UserQuery = [%graphql
   |}
 ];
 
-let clearUrl = url => {
+let removeQuotationMarks = url => {
   let remove = Js.String2.replace(_, "\"", "");
 
   url->remove->remove;
@@ -42,9 +43,14 @@ let make = () => {
           switch (user) {
           | Some(user) =>
             let data: UserContext.user = {
-              avatarUrl: user.avatarUrl->Js.Json.stringify->clearUrl,
+              avatarUrl:
+                user.avatarUrl->Js.Json.stringify->removeQuotationMarks,
               bio: user.bio,
               company: user.company,
+              createdAt:
+                Js.Json.stringify(user.createdAt)
+                ->removeQuotationMarks
+                ->Js.Date.fromString,
               email: user.email,
               forkedRepositoriesCount: user.forkedRepositories.totalCount,
               location: user.location,
@@ -54,7 +60,8 @@ let make = () => {
               twitterUsername: user.twitterUsername,
               websiteUrl:
                 switch (user.websiteUrl) {
-                | Some(url) => Some(url->Js.Json.stringify->clearUrl)
+                | Some(url) =>
+                  Some(url->Js.Json.stringify->removeQuotationMarks)
                 | None => None
                 },
             };

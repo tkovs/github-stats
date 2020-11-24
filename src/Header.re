@@ -22,6 +22,10 @@ let make = () => {
       <h2>
         {Belt.Option.getWithDefault(user.name, "<no name>")->React.string}
       </h2>;
+    let createdAt =
+      <p>
+        {user.createdAt->Js.Date.getFullYear->Js.Float.toString->React.string}
+      </p>;
     let email = <p> user.email->React.string </p>;
     let repoTypes =
       <p>
@@ -53,6 +57,7 @@ let make = () => {
 
     <div>
       name
+      createdAt
       email
       bio
       company
