@@ -73,15 +73,9 @@ let make = () => {
         }
       );
 
-  let debouncedSetLogin = Debouncer.make(~wait=500, setLogin);
-
   <div>
     <UserProvider value>
-      <input
-        type_="text"
-        onChange={e => e->ReactEvent.Form.target##value |> debouncedSetLogin}
-        maxLength=64
-      />
+      <Navbar submit={value => setLogin(_ => value)} />
       <Header />
     </UserProvider>
   </div>;
