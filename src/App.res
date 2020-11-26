@@ -1,5 +1,5 @@
-module UserQuery = [%graphql
-  {|
+module UserQuery = %graphql(
+  `
     query User ($login: String!) {
       user(login: $login) {
         avatarUrl
@@ -19,64 +19,56 @@ module UserQuery = [%graphql
         }
       }
     }
-  |}
-];
+  `
+)
 
 let removeQuotationMarks = url => {
-  let remove = Js.String2.replace(_, "\"", "");
+  let remove = Js.String2.replace(_, "\"", "")
 
-  url->remove->remove;
-};
+  url->remove->remove
+}
 
-[@react.component]
+@react.component
 let make = () => {
-  let (login, setLogin) = React.useState(_ => "");
-  let queryResult = UserQuery.use({login: login});
+  let (login, setLogin) = React.useState(_ => "")
+  let queryResult = UserQuery.use({login: login})
 
   let value =
     login === ""
       ? UserContext.NotInitialized
-      : (
-        switch (queryResult) {
+      : switch queryResult {
         | {error: None, loading: false, data: None} => NotInitialized
         | {error: None, loading: false, data: Some({user})} =>
-          switch (user) {
+          switch user {
           | Some(user) =>
             let data: UserContext.user = {
-              avatarUrl:
-                user.avatarUrl->Js.Json.stringify->removeQuotationMarks,
+              avatarUrl: user.avatarUrl->Js.Json.stringify->removeQuotationMarks,
               bio: user.bio,
               company: user.company,
-              createdAt:
-                Js.Json.stringify(user.createdAt)
-                ->removeQuotationMarks
-                ->Js.Date.fromString,
+              createdAt: Js.Json.stringify(user.createdAt)
+              ->removeQuotationMarks
+              ->Js.Date.fromString,
               email: user.email,
               forkedRepositoriesCount: user.forkedRepositories.totalCount,
               location: user.location,
               name: user.name,
-              notForkedRepositoriesCount:
-                user.notForkedRepositories.totalCount,
+              notForkedRepositoriesCount: user.notForkedRepositories.totalCount,
               twitterUsername: user.twitterUsername,
-              websiteUrl:
-                switch (user.websiteUrl) {
-                | Some(url) =>
-                  Some(url->Js.Json.stringify->removeQuotationMarks)
-                | None => None
-                },
-            };
-            User(data);
+              websiteUrl: switch user.websiteUrl {
+              | Some(url) => Some(url->Js.Json.stringify->removeQuotationMarks)
+              | None => None
+              },
+            }
+            User(data)
           | None => NotInitialized
           }
         | {loading: true} => Loading
         | {error: Some(_)} => Error
         }
-      );
 
   <div>
     <UserProvider value>
-      <Navbar submit={value => setLogin(_ => value)} />
-      <Header />
+      <Navbar submit={value => setLogin(_ => value)} /> <Header />
     </UserProvider>
-  </div>;
-};
+  </div>
+}

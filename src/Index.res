@@ -3,4 +3,4 @@ ReactDOMRe.renderToElementWithId(
     <App />
   </ApolloClient.React.ApolloProvider>,
   "root",
-);
+)
