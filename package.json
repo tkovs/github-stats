@@ -9,7 +9,9 @@
     "test:watch": "jest --watchAll",
     "webpack": "webpack -w",
     "webpack:production": "NODE_ENV=production webpack",
-    "server": "webpack-dev-server"
+    "server": "webpack-dev-server",
+    "relay": "reason-relay-compiler",
+    "relay:watch": "reason-relay-compiler --watch"
   },
   "keywords": [
     "BuckleScript",
@@ -22,24 +24,29 @@
   "author": "tkovs <joao.rodrigues@arapiraca.ufal.br> (https://github.com/tkovs)",
   "license": "MIT",
   "dependencies": {
-    "@apollo/client": "3.2.4",
-    "graphql": "15.3.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "reason-apollo-client": "^1.0.0-beta.1",
-    "reason-promise": "1.1.1",
+    "bs-fetch": "^0.6.2",
+    "graphql": "^15.4.0",
+    "react": "0.0.0-experimental-4ead6b530",
+    "react-dom": "0.0.0-experimental-4ead6b530",
+    "react-relay": "0.0.0-experimental-c818bac3",
+    "reason-promise": "^1.1.2",
     "reason-react": "0.9.1",
-    "subscriptions-transport-ws": "0.9.16"
+    "reason-relay": "^0.12.1",
+    "relay-compiler": "10.1.0",
+    "relay-config": "10.1.0",
+    "relay-runtime": "10.1.0"
   },
   "devDependencies": {
-    "@reasonml-community/graphql-ppx": "1.0.0",
     "bs-platform": "8.3.3",
     "css-loader": "^5.0.1",
-    "graphql-client-example-server": "1.2.0",
     "html-webpack-plugin": "4.3.0",
     "style-loader": "^2.0.0",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.0"
+  },
+  "resolutions": {
+    "react": "0.0.0-experimental-4ead6b530",
+    "react-dom": "0.0.0-experimental-4ead6b530"
   }
 }

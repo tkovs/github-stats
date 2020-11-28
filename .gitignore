@@ -9,3 +9,4 @@ npm-debug.log
 *.bs.js
 build
 Config.res
+__generated__
