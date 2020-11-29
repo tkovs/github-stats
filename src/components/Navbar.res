@@ -7,23 +7,27 @@ let make = (~submit) => {
     login->submit
   }
 
-  <div className="ui menu ">
-    <div className="header item"> {"Github Status"->React.string} </div>
-    <div className="right item">
-      <div className="ui action input">
-        <form onSubmit>
+  <>
+    <div className="ui padded grid">
+      <div className="ui borderless top fixed fluid menu">
+        <div className="header item"> {"Github Status"->React.string} </div>
+        <div className="right item">
           <div className="ui action input">
-            <input
-              type_="text"
-              value=login
-              placeholder="Search for..."
-              onChange={e => (e->ReactEvent.Form.target)["value"] |> setLogin}
-              maxLength=64
-            />
-            <button className={"ui button"}> {"Find"->React.string} </button>
+            <form onSubmit>
+              <div className="ui icon input">
+                <i className="search icon" />
+                <input
+                  type_="text"
+                  value=login
+                  placeholder="Search for..."
+                  onChange={e => (e->ReactEvent.Form.target)["value"] |> setLogin}
+                  maxLength=64
+                />
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
+  </>
 }

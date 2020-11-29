@@ -27,5 +27,5 @@ let make = () => {
   let (login, setLogin) = React.useState(_ => "")
   let user = Query.use(~variables={login: login}, ())
 
-  <div> <Navbar submit={value => setLogin(_ => value)} /> <Header user /> </div>
+  <div> <Navbar submit={value => setLogin(_ => value)} /> <div> <Sidebar /> </div> </div>
 }
