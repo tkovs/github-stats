@@ -35,6 +35,5 @@ let make = (~user: AppUserQuery_graphql.Types.response) => {
     }
 
     <div> name createdAt email bio company website twitterUsername location repoTypes image </div>
-  // <div> email image </div>
   }
 }

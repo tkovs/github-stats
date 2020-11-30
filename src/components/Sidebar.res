@@ -1,2 +1,5 @@
 @react.component
-let make = () => <p> {"Sidebar"->React.string} </p>
+let make = () =>
+  <div className="four wide tablet only three wide computer only column" id="sidebar">
+    {"Sidebar"->React.string}
+  </div>

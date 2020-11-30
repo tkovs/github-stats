@@ -1,3 +1,5 @@
+%%raw(`require('./styles/index.css')`)
+
 module Query = %relay.query(
   `
     query AppUserQuery ($login: String!) {
@@ -27,5 +29,7 @@ let make = () => {
   let (login, setLogin) = React.useState(_ => "")
   let user = Query.use(~variables={login: login}, ())
 
-  <div> <Navbar submit={value => setLogin(_ => value)} /> <div> <Sidebar /> </div> </div>
+  <div className="ui padded grid">
+    <Navbar submit={value => setLogin(_ => value)} /> <Sidebar /> <Content />
+  </div>
 }
