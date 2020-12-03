@@ -1,10 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const outputDir = path.join(__dirname, 'build/');
 
 const isProd = process.env.NODE_ENV === 'production';
 
-module.exports = {
+module.exports = (env) => ({
   entry: './src/Index.bs.js',
   mode: isProd ? 'production' : 'development',
   output: {
@@ -17,6 +18,7 @@ module.exports = {
       template: 'index.html',
       inject: false
     }),
+    new webpack.DefinePlugin({ 'process.env.GITHUB_TOKEN': JSON.stringify(env.GITHUB_TOKEN) })
   ],
   devServer: {
     compress: true,
@@ -32,4 +34,4 @@ module.exports = {
       },
     ],
   },
-};
+});
