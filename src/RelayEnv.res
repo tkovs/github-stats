@@ -20,7 +20,7 @@ let fetchQuery: ReasonRelay.Network.fetchFunctionPromise = (operation, variables
       |> Js.Json.stringify
       |> BodyInit.make,
       ~headers=HeadersInit.make({
-        "Authorization": "bearer " ++ Config.token,
+        "Authorization": "bearer " ++ Environment.token,
       }),
       (),
     ),

@@ -40,11 +40,11 @@ let make = () => {
   let (login, setLogin) = React.useState(_ => "tkovs")
   let user = Query.use(~variables={login: login}, ())
 
-  <div className="ui padded grid">
+  <div>
     <Navbar submit={value => setLogin(_ => value)} />
     {switch user {
     | {user: None} => React.null
-    | {user: Some(user)} => <> <Sidebar user /> <Content /> <Header user /> </>
+    | {user: Some(user)} => <div className="ui container grid"> <Sidebar user /> <Content /> </>
     }}
   </div>
 }

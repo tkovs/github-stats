@@ -1,6 +1,6 @@
 #sidebar,
 #content {
-  margin-top: 80px;
+  padding-top: 80px;
   color: #24292e;
 }
 
@@ -15,4 +15,8 @@
 
 #navbar > .item {
   color: #fff;
+}
+
+.ui.label.basic.bn {
+  border-style: none;
 }
