@@ -37,7 +37,7 @@ module Query = %relay.query(
 
 @react.component
 let make = () => {
-  let (login, setLogin) = React.useState(_ => "tkovs")
+  let (login, setLogin) = React.useState(_ => "")
   let user = Query.use(~variables={login: login}, ())
 
   <div>
