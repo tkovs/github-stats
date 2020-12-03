@@ -1,2 +1,2 @@
-let token = "506e30053cea1b8e7e18bf30432664c02a165527"
+let token = "6913f3a444af584848fe7d812260e2bd47124ce8"
 @bs.val external github: string = "process.env.GITHUB_TOKEN"
