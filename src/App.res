@@ -44,7 +44,7 @@ let make = () => {
     <Navbar submit={value => setLogin(_ => value)} />
     {switch user {
     | {user: None} => React.null
-    | {user: Some(user)} => <div className="ui container grid"> <Sidebar user /> <Content /> </>
+    | {user: Some(user)} => <div className="ui container grid"> <Sidebar user /> <Content /> </div>
     }}
   </div>
 }
