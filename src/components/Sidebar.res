@@ -20,7 +20,7 @@ let make = (~user: AppUserQuery_graphql.Types.response_user) => {
     | None => React.null
     | Some(bio) => <p className="f4"> {bio->React.string} </p>
     }}
-    <a className="ui fluid button" href={"https:github.com/" ++ user.login}>
+    <a className="ui fluid button" href={"https://github.com/" ++ user.login}>
       <i className="github icon" /> {"Go to github"->React.string}
     </a>
     <div className="ui divider" />
