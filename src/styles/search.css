@@ -1,0 +1,13 @@
+body {
+  background-color: #dadada;
+}
+body > #root {
+  height: 100%;
+}
+
+#search {
+  height: 100%;
+}
+#search .column {
+  margin-top: -80px;
+}

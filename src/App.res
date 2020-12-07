@@ -40,11 +40,13 @@ let make = () => {
   let (login, setLogin) = React.useState(_ => "")
   let user = Query.use(~variables={login: login}, ())
 
-  <div>
-    <Navbar submit={value => setLogin(_ => value)} />
-    {switch user {
-    | {user: None} => React.null
-    | {user: Some(user)} => <div className="ui container grid"> <Sidebar user /> <Content /> </div>
-    }}
-  </div>
+  {
+    switch user {
+    | {user: None} => <Search submit={login => setLogin(_ => login)} />
+    | {user: Some(user)} => <>
+        <Navbar submit={value => setLogin(_ => value)} />
+        <div className="ui container grid"> <Sidebar user /> <Content /> </div>
+      </>
+    }
+  }
 }
