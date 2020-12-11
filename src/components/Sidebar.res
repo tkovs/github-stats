@@ -73,7 +73,9 @@ let make = (~user: AppUserQuery_graphql.Types.response_user) => {
       | None => React.null
       | Some(twitterUsername) => <>
           <i className="twitter icon" />
-          <a className="b" href={twitterUsername}> {("@" ++ twitterUsername)->React.string} </a>
+          <a className="b" href={"https://twitter.com/" ++ twitterUsername}>
+            {("@" ++ twitterUsername)->React.string}
+          </a>
           <br />
         </>
       }}
