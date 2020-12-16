@@ -47,6 +47,7 @@ This project was developed with the following technologies:
 - [ReasonML](https://reasonml.github.io)
 - [GraphQL](https://graphql.org/)
 - [Reason Relay](https://reason-relay-documentation.zth.now.sh/)
+- [Semantic UI](https://semantic-ui.com/)
 
 ## :information_source: How To Run
 
