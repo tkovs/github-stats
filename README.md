@@ -46,6 +46,7 @@ This project was developed with the following technologies:
 - [ReactJS](https://reactjs.org)
 - [ReasonML](https://reasonml.github.io)
 - [GraphQL](https://graphql.org/)
+- [Reason Relay](https://reason-relay-documentation.zth.now.sh/)
 
 ## :information_source: How To Run
 
@@ -62,6 +63,7 @@ $ cd github-stats
 
 # Install dependencies
 $ yarn
+$ yarn relay
 
 # Run the app on two terminals
 $ yarn start
