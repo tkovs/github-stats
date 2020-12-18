@@ -51,7 +51,7 @@ This project was developed with the following technologies:
 
 ## :information_source: How To Run
 
-To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) + [Yarn](https://yarnpkg.com/) (you can use npm instead) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) + [Yarn](https://yarnpkg.com/) (you can use npm instead) installed on your computer. You also need a Github token with access to the Github features. From your command line:
 
 ```bash
 # Clone this repository
@@ -63,12 +63,12 @@ $ gh repo clone tkovs/github-stats
 $ cd github-stats
 
 # Install dependencies
-$ yarn
+$ yarn 
 $ yarn relay
 
 # Run the app on two terminals
 $ yarn start
-$ yarn server
+$ yarn server --env.GITHUB_TOKEN=<token>
 
 # Run the tests
 $ yarn test
