@@ -1,8 +1,31 @@
 %%raw(`require('./styles/search.css')`)
 
+module Fragment = %relay.fragment(
+  `
+    fragment SearchUserFragment on User {
+      login
+      name
+    }
+  `
+)
+
+module Query = %relay.query(
+  `
+    query SearchUserQuery ($term: String!) { 
+      search (type: USER, query: $term, first: 5){
+        nodes {
+          __typename
+          ...SearchUserFragment
+        }
+      }
+    }
+  `
+)
+
 @react.component
 let make = (~submit) => {
   let (login, setLogin) = React.useState(_ => "")
+  let _ = Query.use(~variables={term: login}, ())
 
   let onSubmit = (e: ReactEvent.Form.t): unit => {
     ReactEvent.Form.preventDefault(e)
