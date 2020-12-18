@@ -12,6 +12,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Search page
 
 ## [0.2.0] - 2020-11-24
-## [0.1.1-beta] - 2020-11-24
 ### Added
 - Fetch user data from Github by using the GraphQL API
