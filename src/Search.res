@@ -35,8 +35,20 @@ module Query = %relay.query(
 let make = (~submit) => {
   let (login, setLogin) = React.useState(_ => "")
   let query = Query.use(~variables={term: ""}, ())
-  let (search, refetch) = SearchFragment.useRefetchable(query.fragmentRefs)
-  let (startTransition, isPending) = ReactExperimental.unstable_useTransition()
+  let (searchFragment, refetch) = SearchFragment.useRefetchable(query.fragmentRefs)
+  let (startTransition, _) = ReactExperimental.unstable_useTransition()
+
+  switch searchFragment.search.nodes {
+  | None => ()
+  | Some(nodes) => {
+      let users =
+        nodes
+        ->Belt.Array.keepMap(node => node)
+        ->Belt.Array.map(node => UserFragment.use(node.fragmentRefs))
+
+      Js.log(users)
+    }
+  }
 
   let onSubmit = (e: ReactEvent.Form.t): unit => {
     ReactEvent.Form.preventDefault(e)
