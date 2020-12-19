@@ -1,7 +1,41 @@
+module Fragment = %relay.fragment(
+  `
+    fragment SidebarUserFragment on User {
+      avatarUrl
+      bio
+      company
+      createdAt
+      email
+      followers {
+        totalCount
+      }
+      following {
+        totalCount
+      }
+      location
+      login
+      name
+      twitterUsername
+      starredRepositories {
+        totalCount
+      }
+      websiteUrl
+      forkedRepositories: repositories(isFork: true) {
+        totalCount
+      },
+      notForkedRepositories: repositories(isFork: false) {
+        totalCount
+      }
+    }
+  `
+)
+
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 @react.component
-let make = (~user: AppUserQuery_graphql.Types.response_user) => {
+let make = (~user as userRef) => {
+  let user = Fragment.use(userRef)
+
   let createdAt = user.createdAt->Js.Date.fromString
   let day = createdAt->Js.Date.getDay
   let month = months[createdAt->Js.Date.getMonth->int_of_float]
