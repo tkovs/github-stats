@@ -77,10 +77,10 @@ let make = (~submit) => {
                 let newLogin = (e->ReactEvent.Form.target)["value"]
                 setLogin(newLogin)
 
-                let _ = refetch(
+                refetch(
                   ~variables=SearchFragment.makeRefetchVariables(~term=newLogin, ()),
                   (),
-                )
+                ) |> ignore
               })
             }}
             maxLength=64
