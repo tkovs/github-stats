@@ -1,6 +1,6 @@
 %%raw(`require('./styles/search.css')`)
 
-module Fragment = %relay.fragment(
+module UserFragment = %relay.fragment(
   `
     fragment SearchUserFragment on User {
       login
@@ -9,9 +9,10 @@ module Fragment = %relay.fragment(
   `
 )
 
-module Query = %relay.query(
+module SearchFragment = %relay.fragment(
   `
-    query SearchUserQuery ($term: String!) { 
+    fragment SearchSearchFragment on Query
+    @refetchable(queryName: "SearchUserRefetchQuery") {
       search (type: USER, query: $term, first: 5){
         nodes {
           __typename
@@ -22,10 +23,20 @@ module Query = %relay.query(
   `
 )
 
+module Query = %relay.query(
+  `
+    query SearchUserQuery ($term: String!) { 
+      ...SearchSearchFragment
+    }
+  `
+)
+
 @react.component
 let make = (~submit) => {
   let (login, setLogin) = React.useState(_ => "")
-  let _ = Query.use(~variables={term: login}, ())
+  let query = Query.use(~variables={term: ""}, ())
+  let (search, refetch) = SearchFragment.useRefetchable(query.fragmentRefs)
+  let (startTransition, isPending) = ReactExperimental.unstable_useTransition()
 
   let onSubmit = (e: ReactEvent.Form.t): unit => {
     ReactEvent.Form.preventDefault(e)
@@ -49,7 +60,17 @@ let make = (~submit) => {
             name="login"
             value=login
             placeholder="Find a user by the login"
-            onChange={e => (e->ReactEvent.Form.target)["value"] |> setLogin}
+            onChange={e => {
+              startTransition(() => {
+                let newLogin = (e->ReactEvent.Form.target)["value"]
+                setLogin(newLogin)
+
+                let _ = refetch(
+                  ~variables=SearchFragment.makeRefetchVariables(~term=newLogin, ()),
+                  (),
+                )
+              })
+            }}
             maxLength=64
           />
         </div>
