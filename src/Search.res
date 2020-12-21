@@ -90,26 +90,6 @@ let make = (~submit) => {
           <div className="results" />
         </div>
         {ReasonReact.array(components)}
-        // <div className="ui left icon input large fluid">
-        //   <i className="user icon" />
-        //   <input
-        //     type_="text"
-        //     name="login"
-        //     placeholder="Find a user by the login"
-        //     onChange={e => {
-        //       startTransition(() => {
-        //         let newLogin = (e->ReactEvent.Form.target)["value"]
-        //         setLogin(newLogin)
-
-        //         refetch(
-        //           ~variables=SearchFragment.makeRefetchVariables(~term=newLogin, ()),
-        //           (),
-        //         ) |> ignore
-        //       })
-        //     }}
-        //     maxLength=64
-        //   />
-        // </div>
       </form>
     </div>
   </div>
