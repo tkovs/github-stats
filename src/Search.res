@@ -1,14 +1,5 @@
 %%raw(`require('./styles/search.css')`)
 
-module UserFragment = %relay.fragment(
-  `
-    fragment SearchUserFragment on User {
-      login
-      name
-    }
-  `
-)
-
 module SearchFragment = %relay.fragment(
   `
     fragment SearchSearchFragment on Query
@@ -16,7 +7,7 @@ module SearchFragment = %relay.fragment(
       search (type: USER, query: $term, first: 5){
         nodes {
           __typename
-          ...SearchUserFragment
+          ...DumbUserFragment
         }
       }
     }
@@ -37,23 +28,31 @@ let make = (~submit) => {
   let query = Query.use(~variables={term: ""}, ())
   let (searchFragment, refetch) = SearchFragment.useRefetchable(query.fragmentRefs)
   let (startTransition, _) = ReactExperimental.unstable_useTransition()
+  let (searches, setSearches) = React.useState(_ => [""])
+  Js.log(searches)
 
-  switch searchFragment.search.nodes {
-  | None => ()
-  | Some(nodes) => {
-      let users =
-        nodes
-        ->Belt.Array.keepMap(node => node)
-        ->Belt.Array.map(node => UserFragment.use(node.fragmentRefs))
-
-      Js.log(users)
-    }
+  let updateSearch = result => {
+    setSearches(searches => {
+      Belt.Array.concat(searches, result)
+    })
   }
 
   let onSubmit = (e: ReactEvent.Form.t): unit => {
     ReactEvent.Form.preventDefault(e)
     login->submit
   }
+
+  let components = React.useMemo1(_ => {
+    switch searchFragment.search.nodes {
+    | None => [React.null]
+    | Some(nodes) =>
+      nodes
+      ->Belt.Array.keepMap(node => node)
+      ->Belt.Array.mapWithIndex((index, node) =>
+        <Dumb key={login ++ string_of_int(index)} user=node.fragmentRefs submit=updateSearch />
+      )
+    }
+  }, [login])
 
   <div className="ui middle aligned centered grid" id="search">
     <div className="fourteen wide mobile eight wide tablet four wide computer column">
@@ -65,27 +64,52 @@ let make = (~submit) => {
         <div className="content"> {React.string("Githubr")} </div>
       </h2>
       <form className="ui fluid" onSubmit>
-        <div className="ui left icon input large fluid">
-          <i className="user icon" />
-          <input
-            type_="text"
-            name="login"
-            value=login
-            placeholder="Find a user by the login"
-            onChange={e => {
-              startTransition(() => {
-                let newLogin = (e->ReactEvent.Form.target)["value"]
-                setLogin(newLogin)
+        <div className="ui category search">
+          <div className="ui left icon input large fluid">
+            <input
+              className="prompt"
+              type_="text"
+              name="login"
+              placeholder="Find a user by the login"
+              onChange={e => {
+                startTransition(() => {
+                  let newLogin = (e->ReactEvent.Form.target)["value"]
+                  setLogin(newLogin)
+                  setSearches(_ => [])
 
-                refetch(
-                  ~variables=SearchFragment.makeRefetchVariables(~term=newLogin, ()),
-                  (),
-                ) |> ignore
-              })
-            }}
-            maxLength=64
-          />
+                  refetch(
+                    ~variables=SearchFragment.makeRefetchVariables(~term=newLogin, ()),
+                    (),
+                  ) |> ignore
+                })
+              }}
+              maxLength=64
+            />
+            <i className="search icon" />
+          </div>
+          <div className="results" />
         </div>
+        {ReasonReact.array(components)}
+        // <div className="ui left icon input large fluid">
+        //   <i className="user icon" />
+        //   <input
+        //     type_="text"
+        //     name="login"
+        //     placeholder="Find a user by the login"
+        //     onChange={e => {
+        //       startTransition(() => {
+        //         let newLogin = (e->ReactEvent.Form.target)["value"]
+        //         setLogin(newLogin)
+
+        //         refetch(
+        //           ~variables=SearchFragment.makeRefetchVariables(~term=newLogin, ()),
+        //           (),
+        //         ) |> ignore
+        //       })
+        //     }}
+        //     maxLength=64
+        //   />
+        // </div>
       </form>
     </div>
   </div>
