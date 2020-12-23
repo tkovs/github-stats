@@ -29,7 +29,10 @@ let make = (~submit) => {
   let (searchFragment, refetch) = SearchFragment.useRefetchable(query.fragmentRefs)
   let (startTransition, _) = ReactExperimental.unstable_useTransition()
   let (searches, setSearches) = React.useState(_ => [""])
-  Js.log(searches)
+
+  if Js.Array.length(searches) > 0 {
+    Js.log(searches)
+  }
 
   let updateSearch = result => {
     setSearches(searches => {
