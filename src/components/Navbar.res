@@ -7,8 +7,11 @@ let make = (~submit) => {
     login->submit
   }
 
-  <div className="ui borderless top fixed fluid menu">
+  <div className="ui borderless top fixed fluid menu" id="navbar">
     <div className="header item"> {"Github Status"->React.string} </div>
+    <a className="link item" href="https://github.com/tkovs/github-stats">
+      {"Repo"->React.string}
+    </a>
     <div className="right item">
       <div className="ui action input">
         <form onSubmit>

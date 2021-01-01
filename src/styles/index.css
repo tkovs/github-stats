@@ -1,4 +1,18 @@
 #sidebar,
 #content {
-  padding-top: 64px;
+  margin-top: 80px;
+  color: #24292e;
+}
+
+#sidebar {
+}
+
+#navbar {
+  background-color: #242a2e;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+#navbar > .item {
+  color: #fff;
 }
