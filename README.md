@@ -4,7 +4,7 @@
 </h1>
 
 <h4 align="center">
-  Github profile stats with ReScript, React and GraphQL.
+  Github profile stats with ReScript, React and Relay.
 </h4>
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/tkovs/github-stats.svg">
@@ -44,7 +44,7 @@
 This project was developed with the following technologies:
 
 - [ReactJS](https://reactjs.org)
-- [ReasonML](https://reasonml.github.io)
+- [ReScript](https://rescript-lang.org/)
 - [GraphQL](https://graphql.org/)
 - [Reason Relay](https://reason-relay-documentation.zth.now.sh/)
 - [Semantic UI](https://semantic-ui.com/)
