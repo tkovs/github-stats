@@ -4,7 +4,7 @@
 </h1>
 
 <h4 align="center">
-  Github profile stats with ReasonML, React and GraphQL.
+  Github profile stats with ReScript, React and GraphQL.
 </h4>
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/tkovs/github-stats.svg">
